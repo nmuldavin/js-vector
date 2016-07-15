@@ -1,24 +1,33 @@
 
 var Vector = function(length) {
 
-    var inst;
+  var inst;
 
-    if (!length) {
-      inst = [];
-    } else {
-      inst = new Array(length);
-      inst.fill(0);
-    }
+  if (!length) {
+    inst = [];
+  } else {
+    inst = new Array(length);
+    inst.fill(0);
+  }
 
-    inst.__proto__ = Vector.prototype;
+  inst.__proto__ = Vector.prototype;
 
-    return inst;
+  return inst;
 };
 
 Vector.prototype = Object.create(Array.prototype);
 
-
 addVectorMethods(Vector.prototype);
+
+Vector.from = function() {
+  var inst = new Vector();
+  return inst.push(Array.from(arguments));
+};
+
+Vector.of = function() {
+  var inst = new Vector();
+  return inst.push(Array.from(arguments));
+};
 
 function addVectorMethods(that) {
 
@@ -33,9 +42,6 @@ function addVectorMethods(that) {
   return that;
 }
 
-Vector.prototype = addVectorMethods(Vector.prototype);
-
-var tester = new Vector(5);
-
-console.log(tester);
-console.log(Vector.from(1, 2, 3));
+module.exports = {
+  Vector: Vector
+};
