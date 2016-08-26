@@ -948,7 +948,6 @@ module.exports = {
     ////////////////////////////////////////////////////////////////////////////
 
     // allow referencing __proto__
-    'no-proto': 0,
-    'no-param-reassign': 2
+    'no-proto': 0
   }
 }

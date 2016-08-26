@@ -13,7 +13,7 @@ function Vector(length) {
     }
   }
 
-  inst.__proto__ = Vector.prototype;
+  Object.setPrototypeOf(inst, Vector.prototype);
   return inst;
 }
 
@@ -22,15 +22,30 @@ Vector.prototype = Object.create(Array.prototype);
 Vector.from = function from(...args) {
   const inst = Array.from(...args);
 
-  inst.__proto__ = Vector.prototype;
+  Object.setPrototypeOf(inst, Vector.prototype);
   return inst;
 };
 
 Vector.of = function of(...args) {
   const inst = Array.of(...args);
 
-  inst.__proto__ = Vector.prototype;
+  Object.setPrototypeOf(inst, Vector.prototype);
   return inst;
+};
+
+const vectorMethods = {
+  isEqual(other) {
+    const length = this.length;
+    let i;
+
+    for (i = 0; i < length; i++) {
+      if (this[i] !== other[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  },
 };
 
 function addVectorMethods(that) {
@@ -252,7 +267,10 @@ function addVectorMethods(that) {
   return that;
 }
 
-addVectorMethods(Vector.prototype);
+// addVectorMethods(Vector.prototype);
+for (let method in vectorMethods) {
+  Vector.prototype[method] = Vector.prototype[method]
+}
 
 module.exports = {
   Vector,
